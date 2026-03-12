@@ -34,8 +34,8 @@
 ## Snapshot 清單
 | 名稱 | 建立時機 | 用途說明 | 建立前驗證 |
 |---|---|---|---|
-| clean-baseline | 20:35 | 原始乾淨狀態 | hostnamectl、docker --version |
-| docker-ready | 20:37 | 包含映像檔狀態 | sudo docker images |
+| clean-baseline | 21:28 | 原始乾淨狀態 | hostnamectl、docker --version |
+| docker-ready | 21:32 | 包含映像檔狀態 | sudo docker images |
 
 ### Snapshot 結構與磁碟觀察
 ![差異磁碟機制](./差異磁碟機制.png)

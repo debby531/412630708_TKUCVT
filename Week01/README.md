@@ -10,10 +10,10 @@
 ## VM 資源配置驗證
 | 項目 | VMware 設定值 | VM 內命令 | VM 內輸出 |
 |---|---|---|---|
-| CPU | 2 vCPU | `lscpu | grep "^CPU(s)"` | CPU(s): 2 |
-| 記憶體 | 4 GB | `free -h | grep Mem` | Mem: 3.3Gi |
-| 磁碟 | 20 GB | `df -h / | grep "/$"` | /dev/nvme0n1p2 19G |
-| Hypervisor | VMware | `lscpu | grep Hypervisor` | Hypervisor vendor: VMware |
+| CPU | 2 vCPU | `lscpu \| grep "^CPU(s)"` | CPU(s): 2 |
+| 記憶體 | 4 GB | `free -h \| grep Mem` | Mem: 3.3Gi |
+| 磁碟 | 20 GB | `df -h / \| grep "/$"` | /dev/nvme0n1p2 19G |
+| Hypervisor | VMware | `lscpu \| grep Hypervisor` | Hypervisor vendor: VMware |
 
 ## 四層驗收證據
 - [x] ① Repository: \`cat /etc/apt/sources.list.d/docker.list\` 配置成功

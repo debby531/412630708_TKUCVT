@@ -16,18 +16,54 @@
 | Hypervisor | VMware | `lscpu \| grep Hypervisor` | Hypervisor vendor: VMware |
 
 ## 四層驗收證據
-- [x] ① Repository: \`cat /etc/apt/sources.list.d/docker.list\` 配置成功
-- [x] ② Engine: \`dpkg -l | grep docker-ce\` (5:29.3.0) 已安裝
-- [x] ③ Daemon: \`sudo systemctl status docker\` 顯示 Active (running)
-- [x] ④ 端到端: \`sudo docker run hello-world\` 成功輸出 Hello from Docker!
-- [x] Compose: \`v5.1.0\` 驗證可執行
+- [x] ① Repository: \`cat /etc/apt/sources.list.d/docker.list\` 
+deb [arch=arm64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu questing stable
+- [x] ② Engine: \`dpkg -l | grep docker-ce\` 
+ii  docker-ce                  5:29.3.0-1~ubuntu.25.10~questing  arm64  Docker: the open-source application container engine
+ii  docker-ce-cli              5:29.3.0-1~ubuntu.25.10~questing  arm64  Docker CLI: the open-source application container engine
+ii  docker-ce-rootless-extras  5:29.3.0-1~ubuntu.25.10~questing  arm64  Rootless support for Docker.
+- [x] ③ Daemon: \`sudo systemctl status docker\` 顯示 Active 
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2026-03-12 20:23:39 CST; 1h 19min ago
+   Main PID: 23389 (dockerd)
+     CGroup: /system.slice/docker.service
+             └─23389 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+- [x] ④ 端到端: \`sudo docker run hello-world\` 成功輸出
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+...
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (arm64v8)
+...
+- [x] Compose: \`v5.1.0\` 可執行
+Docker Compose version v5.1.0
 
 ![四層驗收](./復原後完整驗證.png)
 
 ## 容器操作紀錄
-- [x] **nginx**: \`sudo docker run -d -p 8080:80 nginx\` + \`curl localhost:8080\` 成功回傳 HTML。
-- [x] **alpine**: 進入 \`/sh\` 環境並確認 OS 版本。
-- [x] **映像列表**: \`sudo docker images\` 包含 alpine, nginx, hello-world。
+- [x] **nginx**: \`sudo docker run -d -p 8080:80 nginx\` + \`curl localhost:8080\` 
+# Container ID: a4424e682195db30c05ffdf5855a0b3ee667b38b57b8d166b07667ea3e99b1d4
+# Curl Output:
+<!DOCTYPE html>
+<html>
+<head><title>Welcome to nginx!</title></head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, nginx is successfully installed and working.</p>
+</body>
+</html>
+- [x] **alpine**: `sudo docker run -it --rm alpine /bin/sh` 
+/ # ls
+bin    etc    lib    mnt    proc   run    srv    tmp    var
+dev    home   media  opt    root   sbin   sys    usr
+- [x] **映像列表**: \`sudo docker images\` 
+IMAGE                    ID              DISK USAGE      CONTENT SIZE
+alpine:latest             1ab49c19c53e        8.7MB             0B         
+hello-world:latest        ca9905c726f0        5.2kB             0B     U   
+httpd:2.4                 19696c3c07ab        147MB             0B         
+my-apache-server:latest   7b1557446a5a        147MB             0B         
+nginx:latest              8d8e80999f5f        181MB             0B     U
 
 ![驗證nginx功能完整](./驗證nginx功能完整.png)
 
